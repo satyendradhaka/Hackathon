@@ -8,17 +8,26 @@
 <form action="/todo" method="POST">
     <label for='title'>To-do: </label>
     <input type="text" name='title' placeholder="add a To-do here" id="title">
+    <label for="Label">Add label</label> 
+    <select name="Label" id="label">
+        <option value="Personal">Personal</option>
+        <option value="Work">Work</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Others">Others</option>
+    </select>
     <label for="dueDate">enter due date: </label>
     <input type="date" name="dueDate" id="dueDate">
     <input type="submit" value="submit">
 </form>
 <ul>
     <% todo.forEach(function(todo){%>
-        <%if(todo.author.id.equals(currentUser._id)){%>
+        <%if(todo.author.id && todo.author.id.equals(currentUser._id)){%>
+
             <% if(todo.status!='archive'){%>
     <li>
             <ol>
                 <li><strong>Title: </strong> <%=todo.title%> </li>
+                <li><strong>Label:</strong> <%= todo.Label %></li>
                 <li><strong>date of creation: </strong></li><%=todo.created%>
         </li>
         <li><strong>Due Date: </strong><%=todo.dueDate%></li>

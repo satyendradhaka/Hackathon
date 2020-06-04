@@ -19,6 +19,7 @@ app.use(methodOverride('_method'))
 var todoSchema = new mongoose.Schema({
     title:String,
     status: String,
+    Label:String,
     created: {type: Date, default: Date.now},
     dueDate: Date,
     author:{
@@ -90,7 +91,8 @@ app.post('/todo', isLoggedIn, function(req, res){
         id: req.user._id,
         username: req.user.username
     }
-    var newTodo={title: title, dueDate: dueDate, author: author}
+    var label= req.body.Label
+    var newTodo={title: title,Label : label, dueDate: dueDate, author: author}
     Todo.create(newTodo, function(err, newTodo){
         if(err){
             res.redirect('/')
@@ -168,6 +170,7 @@ function isLoggedIn(req, res, next){
     }
     res.redirect("/login");
 }
+
 
 
 app.listen(port, function(){
