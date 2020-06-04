@@ -1,6 +1,11 @@
 <%- include("./partials/header")%>
 <h1>this is fucking insane</h1>
-<form action="/" method="POST">
+<%if(!currentUser){%>
+    <p> <a href="/register">Register here</a></p>
+    <p><a href="/login">Login here if already registered</a></p>
+   
+    <%}else{%>
+<form action="/todo" method="POST">
     <label for='title'>To-do: </label>
     <input type="text" name='todo[title]' placeholder="add a To-do here" id="title">
     <label for="dueDate">enter due date: </label>
@@ -18,10 +23,10 @@
         <li><strong>Due Date: </strong><%=todo.dueDate%></li>
         </ol>
         </li>
-        <form action="/<%=todo._id%>?_method=PUT" method="POST">
+        <form action="/todo/<%=todo._id%>?_method=PUT" method="POST">
             <input type="submit" name="todo[status]" value="archive">
         </form>
-        <form action="/<%=todo._id%>?_method=PUT" method="POST">
+        <form action="/todo/<%=todo._id%>?_method=PUT" method="POST">
             <input type="submit" name="todo[status]" value="current">
         </form>
     <%}%>
@@ -29,6 +34,7 @@
     ================================================================
     <%})%>
 </ul>
-
+<a href="/logout">logout</a>
 <a href='/archive'>view archived to-dos</a>
+<%}%>
 <%-include('./partials/footer')%>

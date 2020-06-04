@@ -9,7 +9,7 @@
                 <li><strong>Due Date: </strong><%=todo.dueDate%></li>
             </ol>
         </li>
-        <form action="/<%=todo._id%>?_method=PUT" method="POST">
+        <form action="/todo/<%=todo._id%>?_method=PUT" method="POST">
             <input type="submit" name="todo[status]" value="current">
         </form>
     ========================================================

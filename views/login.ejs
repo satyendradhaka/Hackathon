@@ -1,0 +1,12 @@
+<%- include("./partials/header")%>
+<h1>Login Here</h1>
+
+<form action="/login" method="POST">
+<input type="email" name="username" placeholder="enter registered email here">
+<input type="password" name="password" placeholder="passoword">
+<button type="submit">Login</button>
+</form>
+<a href="/register">if not registered click here to register</a>
+
+
+<%-include('./partials/footer')%>
