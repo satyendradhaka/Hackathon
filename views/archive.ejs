@@ -1,0 +1,19 @@
+<%- include("./partials/header")%>
+<h1>Archived list</h1>
+<ul>
+    <% todo.forEach(function(todo){%>
+        <li>
+            <ol>
+                <li><strong>Title: </strong> <%= todo.title%></li>
+                <li><strong>Date of creation: </strong><%=todo.created%></li>
+                <li><strong>Due Date: </strong><%=todo.dueDate%></li>
+            </ol>
+        </li>
+        <form action="/<%=todo._id%>?_method=PUT" method="POST">
+            <input type="submit" name="todo[status]" value="current">
+        </form>
+    ========================================================
+    <%})%>
+</ul>
+<a href='/'>Go to Home page</a>
+<%-include('./partials/footer')%>
