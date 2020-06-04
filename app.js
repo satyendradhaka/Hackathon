@@ -172,6 +172,7 @@ function isLoggedIn(req, res, next){
 }
 
 
-app.listen(8000, function(){
+
+app.listen(port, function(){
     console.log('list server is up and running')
 })

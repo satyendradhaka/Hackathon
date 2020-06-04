@@ -16,13 +16,13 @@
         <option value="Others">Others</option>
     </select>
     <label for="dueDate">enter due date: </label>
-    
     <input type="date" name="dueDate" id="dueDate">
     <input type="submit" value="submit">
 </form>
 <ul>
     <% todo.forEach(function(todo){%>
         <%if(todo.author.id && todo.author.id.equals(currentUser._id)){%>
+
             <% if(todo.status!='archive'){%>
     <li>
             <ol>
