@@ -1,14 +1,14 @@
 <%- include("./partials/header")%>
 <h1>this is fucking insane</h1>
 <%if(!currentUser){%>
-    <p> <a href="/register">Register here</a></p>
-    <p><a href="/login">Login here if already registered</a></p>
-   
-    <%}else{%>
+<p> <a href="/register">Register here</a></p>
+<p><a href="/login">Login here if already registered</a></p>
+
+<%}else{%>
 <form action="/todo" method="POST">
     <label for='title'>To-do: </label>
     <input type="text" name='title' placeholder="add a To-do here" id="title">
-    <label for="Label">Add label</label> 
+    <label for="Label">Add label</label>
     <select name="Label" id="label">
         <option value="Personal">Personal</option>
         <option value="Work">Work</option>
@@ -25,28 +25,38 @@
 <br>
 <ul>
     <% todo.forEach(function(todo){%>
-        <%if(todo.author.id && todo.author.id.equals(currentUser._id)){%>
+    <%if(todo.author.id && todo.author.id.equals(currentUser._id)){%>
 
-            <% if(todo.status!='archive'){%>
+    <% if(todo.type!='archive'){%>
     <li>
-            <ol>
-                <li><strong>Title: </strong> <%=todo.title%> </li>
-                <li><strong>Label:</strong> <%= todo.Label %></li>
-                <li><strong>date of creation: </strong></li><%=todo.created%>
-        </li>
+        <ol>
+            <li><strong>Title: </strong> <%=todo.title%> </li>
+            <li><strong>Label:</strong> <%= todo.Label %></li>
+            <li><strong>date of creation: </strong></li><%=todo.created%> </li>
+    <li><strong>Status: </strong> <%=todo.status%></li>
         <li><strong>Due Date: </strong><%=todo.dueDate%></li>
-        </ol>
-        </li>
-        <form action="/todo/<%=todo._id%>?_method=PUT" method="POST">
-            <input type="submit" name="todo[status]" value="archive">
-        </form>
-        <%if(todo.status!='active'){%>
-        <form action="/todo/<%=todo._id%>?_method=PUT" method="POST">
-            <input type="submit" name="todo[status]" value="active">
-        </form>
+    </ol>
+    </li>
+    <form action="/todo/<%=todo._id%>?_method=PUT" method="POST">
+        <input type="submit" name="todo[type]" value="archive">
+    </form>
+    <%if(todo.status!='in progress'){%>
+    <form action="/todo/<%=todo._id%>?_method=PUT" method="POST">
+        <input type="submit" value="in progress" name="todo[status]">
+    </form>
+    <%}%>
+        <%if(todo.status!='completed'){%>
+    <form action="/todo/<%=todo._id%>?_method=PUT" method="POST">
+        <input type="submit" value="completed" name="todo[status]">
+    </form>
+    <%}%>
+        <%if(todo.type!='active'){%>
+    <form action="/todo/<%=todo._id%>?_method=PUT" method="POST">
+        <input type="submit" name="todo[type]" value="active">
+    </form>
+    <%}%>
         <%}%>
-        <%}%>
-   
+
     <%}%>
     
     ================================================================

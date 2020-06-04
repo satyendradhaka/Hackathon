@@ -18,8 +18,10 @@ app.use(methodOverride('_method'))
 //database schema creations
 var todoSchema = new mongoose.Schema({
     title:String,
-    status: String,
+    status: {type: String, default: 'New'},
+    type: String,
     Label:String,
+    priority: Number,
     created: {type: Date, default: Date.now},
     dueDate: Date,
     author:{
@@ -128,7 +130,7 @@ app.post('/todo', isLoggedIn, function(req, res){
 })
 //archived todos
 app.get('/archive', isLoggedIn, function(req, res){
-    Todo.find({'status': 'archive'}, function(err, todo){
+    Todo.find({'type': 'archive'}, function(err, todo){
         if(err){
             console.log(err)
             res.redirect('/')
@@ -136,16 +138,14 @@ app.get('/archive', isLoggedIn, function(req, res){
         res.render('archive', {todo: todo})
     })
 })
-//make todos archive or active logic handeler
+//todo satus and type handeler
 app.put('/todo/:id', isLoggedIn, function(req, res){
-    console.log(req.body)
-    console.log(req.params.id)
     Todo.findByIdAndUpdate(req.params.id, req.body.todo, function(err, updatedTodo){
         if(err){
             console.log(err)
             res.redirect('/')
         }
-        console.log(updatedTodo)
+        console.log('todo updated')
         res.redirect('back')
     })
 })
@@ -209,6 +209,6 @@ function isLoggedIn(req, res, next){
 
 
 
-app.listen(8000, function(){
+app.listen(port, function(){
     console.log('list server is up and running')
 })
