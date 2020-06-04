@@ -63,7 +63,7 @@ app.use(function(req, res, next){
 });
 
 //routes
-
+//home page
 app.get('/', function(req, res){
     if(req.isAuthenticated()){
         res.redirect('/todo')
@@ -82,7 +82,7 @@ app.get('/todo', isLoggedIn, function(req, res){
         }
     })
 });
-
+//add new todo logic handeler
 app.post('/todo', isLoggedIn, function(req, res){
     var title= req.body.title;
     var dueDate = req.body.dueDate
@@ -99,7 +99,7 @@ app.post('/todo', isLoggedIn, function(req, res){
         res.redirect('/')
     })
 })
-
+//archived todos
 app.get('/archive', isLoggedIn, function(req, res){
     Todo.find({'status': 'archive'}, function(err, todo){
         if(err){
@@ -109,7 +109,7 @@ app.get('/archive', isLoggedIn, function(req, res){
         res.render('archive', {todo: todo})
     })
 })
-
+//make todos archive or active logic handeler
 app.put('/todo/:id', isLoggedIn, function(req, res){
     console.log(req.body)
     console.log(req.params.id)
