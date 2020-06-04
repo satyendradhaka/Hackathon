@@ -2,6 +2,7 @@
 <h1>Archived list</h1>
 <ul>
     <% todo.forEach(function(todo){%>
+        <%if(todo.author.id.equals(currentUser._id)){%>
         <li>
             <ol>
                 <li><strong>Title: </strong> <%= todo.title%></li>
@@ -9,9 +10,10 @@
                 <li><strong>Due Date: </strong><%=todo.dueDate%></li>
             </ol>
         </li>
-        <form action="/<%=todo._id%>?_method=PUT" method="POST">
+        <form action="/todo/<%=todo._id%>?_method=PUT" method="POST">
             <input type="submit" name="todo[status]" value="current">
         </form>
+        <%}%>
     ========================================================
     <%})%>
 </ul>

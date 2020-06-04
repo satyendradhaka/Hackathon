@@ -1,0 +1,11 @@
+<%- include("./partials/header")%>
+
+<h1>New user registration page</h1>
+
+<form action="/register" method="POST">
+    <input type="email" name="username" placeholder="enter email here">
+    <input type="password" name="password" placeholder="enter password here">
+    <button type="submit">Register</button>
+</form>
+<a href="/login">If already registered, click here to login</a>
+<%-include('./partials/footer')%>
