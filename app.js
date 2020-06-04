@@ -84,7 +84,14 @@ app.get('/todo', isLoggedIn, function(req, res){
 });
 
 app.post('/todo', isLoggedIn, function(req, res){
-    Todo.create(req.body.todo, function(err, newTodo){
+    var title= req.body.title;
+    var dueDate = req.body.dueDate
+    var author= {
+        id: req.user._id,
+        username: req.user.username
+    }
+    var newTodo={title: title, dueDate: dueDate, author: author}
+    Todo.create(newTodo, function(err, newTodo){
         if(err){
             res.redirect('/')
             console.log(err)
