@@ -19,6 +19,10 @@
     <input type="date" name="dueDate" id="dueDate">
     <input type="submit" value="submit">
 </form>
+
+<br>
+<a href="/filter">Filter</a>
+<br>
 <ul>
     <% todo.forEach(function(todo){%>
         <%if(todo.author.id && todo.author.id.equals(currentUser._id)){%>
@@ -48,6 +52,8 @@
     ================================================================
     <%})%>
 </ul>
+
+
 <a href="/logout">logout</a>
 <a href='/archive'>view archived to-dos</a>
 <%}%>

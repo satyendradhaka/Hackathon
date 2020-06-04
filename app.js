@@ -75,13 +75,38 @@ app.get('/', function(req, res){
 
 //show todos
 app.get('/todo', isLoggedIn, function(req, res){
-    Todo.find({}, function(err, todo){
-        if(err){
+    
+    var label=req.query.Label;
+    var date=req.query.dueDate;
+    if(label=="noval" || !label)
+    {
+        label="\/*"
+    }
+    if(!date)
+    {
+        Todo.find({Label: { $regex: label, $options: 'i'}},function(err,found){
+            if(err)
+            {
+                console.log(err)
+            }
+            else{
+               return res.render('todo',{todo:found})
+            }
+        })
+        
+    }
+    else{
+    console.log(date)
+    Todo.find({Label: { $regex: label, $options: 'i'},dueDate: { $gte: new Date(new Date(date).setHours(00, 00, 00)), $lte:   new Date(new Date(date).setHours(23,59,59))}},function(err,found){
+        if(err)
+        {
             console.log(err)
-        }else{
-            res.render('todo', {todo: todo})
+        }
+        else{
+            res.render('todo',{todo:found})
         }
     })
+    }
 });
 //add new todo logic handeler
 app.post('/todo', isLoggedIn, function(req, res){
@@ -124,6 +149,17 @@ app.put('/todo/:id', isLoggedIn, function(req, res){
         res.redirect('back')
     })
 })
+
+
+//filter feature
+app.get("/filter",isLoggedIn,function(req,res){
+    res.render('filter')
+})
+
+
+
+
+
 
 //auth routes
 //user registration routes
@@ -173,6 +209,6 @@ function isLoggedIn(req, res, next){
 
 
 
-app.listen(port, function(){
+app.listen(8000, function(){
     console.log('list server is up and running')
 })

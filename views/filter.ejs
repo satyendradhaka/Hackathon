@@ -1,0 +1,17 @@
+<%- include("./partials/header")%>
+<h1>Search by:</h1>
+<form action="/todo" method="GET">
+    <label for="Label">Label</label>
+    <select name="Label" id="label">
+        <option value="noval">SELECT Label</option>
+        <option value="Personal">Personal</option>
+        <option value="Work">Work</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Others">Others</option>
+    </select>
+    <label for="dueDate">Due Date</label>
+    <input type="date" name="dueDate" id="dueDate">
+    <input type="submit">
+</form>
+
+<%- include("./partials/footer")%>
